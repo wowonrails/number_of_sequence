@@ -1,19 +1,19 @@
 class BaseError < StandardError
 end
 
-class SequenceNumbers
+class SequenceOfNumbers
   def self.generate(step)
     raise BaseError, "Step must be more than 0" if step <= 0
 
     result = [1]
 
-    return puts result if step == 1
+    return result if step == 1
 
     step.times do
       result << transcription_of_number(result.last)
     end
 
-    puts result
+    result
   end
 
   private
@@ -22,7 +22,7 @@ class SequenceNumbers
     result = []
     temp = []
     counter = 1
-    row = number.inspect.scan(/./)
+    row = number.to_s.scan(/./)
 
     row.each_with_index do |item, index|
       next result_picker(result, [item], 1) if row.size == 1
