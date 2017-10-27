@@ -1,11 +1,11 @@
-class BaseError < StandardError
+class Error < RuntimeError
 end
 
 class SequenceOfNumbers
-  def self.generate(step)
-    raise BaseError, "Step must be more than 0" if step <= 0
+  def self.generate(step, number = 1)
+    arguments_validator(step, number)
 
-    result = [1]
+    result = [number]
 
     return result if step == 1
 
@@ -22,14 +22,14 @@ class SequenceOfNumbers
     result = []
     temp = []
     counter = 1
-    row = number.to_s.scan(/./)
+    array_of_chars = number.to_s.chars
 
-    row.each_with_index do |item, index|
-      next result_picker(result, [item], 1) if row.size == 1
+    array_of_chars.each_with_index do |item, index|
+      break result_picker(result, array_of_chars, 1) if array_of_chars.size == 1
 
-      next temp << item if temp == []
+      next temp << item if temp.empty?
 
-      break generate_last_number(item, result, temp, counter) if (row.size - 1) == index
+      break generate_last_number(item, result, temp, counter) if (array_of_chars.size - 1) == index
 
       next counter += 1 if temp.last == item
 
@@ -54,5 +54,11 @@ class SequenceOfNumbers
 
       result_picker(result, [item], 1)
     end
+  end
+
+  def self.arguments_validator(step, number)
+    raise Error, "Arguments must be greater than zero" if step <= 0 || number <= 0
+
+    raise Error, "Arguments must be integers" if not step.integer? or not number.integer?
   end
 end

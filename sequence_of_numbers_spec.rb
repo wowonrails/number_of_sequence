@@ -15,8 +15,9 @@ describe SequenceOfNumbers do
     end
 
     it "returns an errors" do
-      Proc.new{ SequenceOfNumbers.generate(-1) }.must_raise BaseError
-      Proc.new{ SequenceOfNumbers.generate(0) }.must_raise "Step must be more than 0"
+      Proc.new{ SequenceOfNumbers.generate(-1) }.must_raise Error
+      Proc.new{ SequenceOfNumbers.generate(0) }.must_raise "Arguments must be greater than zero"
+      Proc.new{ SequenceOfNumbers.generate(1.0) }.must_raise "Arguments must be integers"
     end
   end
 end
