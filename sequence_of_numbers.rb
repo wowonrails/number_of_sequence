@@ -3,7 +3,7 @@ end
 
 class SequenceOfNumbers
   def self.generate(step, number = 1)
-    arguments_validator(step, number)
+    validate_arguments(step, number)
 
     result = [number]
 
@@ -56,7 +56,7 @@ class SequenceOfNumbers
     end
   end
 
-  def self.arguments_validator(step, number)
+  def self.validate_arguments(step, number)
     raise Error, "Arguments must be greater than zero" if step <= 0 || number <= 0
 
     raise Error, "Arguments must be integers" if not step.integer? or not number.integer?
